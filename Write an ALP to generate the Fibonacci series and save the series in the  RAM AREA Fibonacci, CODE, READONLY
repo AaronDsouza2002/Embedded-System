@@ -1,0 +1,32 @@
+Write an ALP to generate the Fibonacci series and save the series in the RAM AREA Fibonacci, CODE, READONLY
+
+ENTRY
+; Initialize registers
+LDR R0, =fibonacci_start ; Memory address to store Fibonacci series
+MOV R1, #0 ; First Fibonacci number
+MOV R2, #1 ; Second Fibonacci number
+LDR R3, =fibonacci_length ; Length of the Fibonacci series
+MOV R4, #2
+generate_fibonacci
+; Loop counter
+STR R1, [R0], #4 ; Store the Fibonacci number in memory
+ADD R4, R4, #1 ; Increment loop counter
+CMP R4, R3 ; Compare loop counter with the Fibonacci series length
+BHS done
+completed
+; If loop counter >= Fibonacci series length, generation
+ADD R1, R1, R2 ; Calculate the next Fibonacci number: current + previous
+MOV R2, R1 ; Move the current Fibonacci number to the previous 
+number
+B generate_fibonacci ; Repeat the loop
+done
+; End program execution
+B done
+; Data section 
+fibonacci_start
+; Define the memory location to store the Fibonacci series
+; .space directive can be used to allocate memory, e.g., .space 100
+fibonacci_length
+; Define the length of the Fibonacci series
+; Set the desired length of the series, e.g., .word 10
+END
